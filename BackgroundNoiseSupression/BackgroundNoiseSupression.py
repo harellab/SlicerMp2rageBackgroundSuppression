@@ -1,5 +1,6 @@
 import logging
 import os
+import numpy as np
 from typing import Annotated, Optional
 
 import vtk
@@ -307,23 +308,31 @@ class BackgroundNoiseSupressionLogic(ScriptedLoadableModuleLogic):
         """
         # add mp2rage_contras
 
-        if not inputVolume or not outputVolume:
-            raise ValueError("Input or output volume is invalid")
+        for check_val in [UNI_Image, INV1_Image, INV2_Image, Output_Image]:
+            if not check_val:
+                raise ValueError(f"input or output argument volume is invalid")
 
         import time
         startTime = time.time()
         logging.info('Processing started')
 
-        # Compute the thresholded output volume using the "Threshold Scalar Volume" CLI module
-        cliParams = {
-            'InputVolume': inputVolume.GetID(),
-            'OutputVolume': outputVolume.GetID(),
-            'ThresholdValue': imageThreshold,
-            'ThresholdType': 'Above' if invert else 'Below'
-        }
-        cliNode = slicer.cli.run(slicer.modules.thresholdscalarvolume, None, cliParams, wait_for_completion=True, update_display=showResult)
-        # We don't need the CLI module node anymore, remove it to not clutter the scene with it
-        slicer.mrmlScene.RemoveNode(cliNode)
+        # Run background suppression
+        from mp2rage_contrasts import make_mp2rage_from_unsigned
+        # Calculate ouput voxel data
+        out_array = make_mp2rage_from_unsigned(
+            slicer.util.arrayFromVolume(INV1_Image),
+            slicer.util.arrayFromVolume(INV2_Image),
+            slicer.util.arrayFromVolume(UNI_Image),
+            beta=10000 #TODO fix hardcoding
+        )
+        print(np.shape(out_array[0])) #TODO figure out why output has an extra leading dimension
+        # Store result in output volume
+        slicer.util.updateVolumeFromArray(Output_Image, out_array[0])
+        # Copy orientation affine from UNI image to ouput volume
+        ijkToRas = vtk.vtkMatrix4x4()
+        UNI_Image.GetIJKToRASMatrix(ijkToRas)
+        Output_Image.SetIJKToRASMatrix(ijkToRas)
+        #TODO make sure IJK to RAS direction matrix is correct for all orientations
 
         stopTime = time.time()
         logging.info(f'Processing completed in {stopTime-startTime:.2f} seconds')
