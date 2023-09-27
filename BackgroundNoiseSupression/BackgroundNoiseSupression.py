@@ -110,7 +110,9 @@ class BackgroundNoiseSupressionParameterNode:
     thresholdedVolume - The output volume that will contain the thresholded volume.
     invertedVolume - The output volume that will contain the inverted thresholded volume.
     """
-    inputVolume: vtkMRMLScalarVolumeNode
+    UNI_Image: vtkMRMLScalarVolumeNode
+    INV1_Image: vtkMRMLScalarVolumeNode
+    INV2_Image: vtkMRMLScalarVolumeNode
     imageThreshold: Annotated[float, WithinRange(-100, 500)] = 100
     invertThreshold: bool = False
     thresholdedVolume: vtkMRMLScalarVolumeNode
@@ -240,7 +242,7 @@ class BackgroundNoiseSupressionWidget(ScriptedLoadableModuleWidget, VTKObservati
             self._checkCanApply()
 
     def _checkCanApply(self, caller=None, event=None) -> None:
-        if self._parameterNode and self._parameterNode.inputVolume and self._parameterNode.thresholdedVolume:
+        if self._parameterNode and self._parameterNode.inputVolume: #TODO add other parameters
             self.ui.applyButton.toolTip = "Compute output volume"
             self.ui.applyButton.enabled = True
         else:
@@ -254,14 +256,14 @@ class BackgroundNoiseSupressionWidget(ScriptedLoadableModuleWidget, VTKObservati
         with slicer.util.tryWithErrorDisplay("Failed to compute results.", waitCursor=True):
 
             # Compute output
-            self.logic.process(self.ui.inputSelector.currentNode(), self.ui.outputSelector.currentNode(),
-                               self.ui.imageThresholdSliderWidget.value, self.ui.invertOutputCheckBox.checked)
+            self.logic.process(self.ui.UNI_Image.currentNode(), self.ui.INV1_Image.currentNode(), self.ui.INV2_Image.currentNode(),
+                               self.ui.Output_Image.currentNode(), self.ui.checkBox.checked)
 
             # Compute inverted output (if needed)
-            if self.ui.invertedOutputSelector.currentNode():
-                # If additional output volume is selected then result with inverted threshold is written there
-                self.logic.process(self.ui.inputSelector.currentNode(), self.ui.invertedOutputSelector.currentNode(),
-                                   self.ui.imageThresholdSliderWidget.value, not self.ui.invertOutputCheckBox.checked, showResult=False)
+            #if self.ui.invertedOutputSelector.currentNode():
+             #   # If additional output volume is selected then result with inverted threshold is written there
+              #  self.logic.process(self.ui.inputSelector.currentNode(), self.ui.invertedOutputSelector.currentNode(),
+               #                    self.ui.imageThresholdSliderWidget.value, not self.ui.invertOutputCheckBox.checked, showResult=False)
 
 
 #
@@ -288,9 +290,10 @@ class BackgroundNoiseSupressionLogic(ScriptedLoadableModuleLogic):
         return BackgroundNoiseSupressionParameterNode(super().getParameterNode())
 
     def process(self,
-                inputVolume: vtkMRMLScalarVolumeNode,
-                outputVolume: vtkMRMLScalarVolumeNode,
-                imageThreshold: float,
+                UNI_Image: vtkMRMLScalarVolumeNode, #UNI image
+                outputVolume: vtkMRMLScalarVolumeNode, #INV1 image
+                outputVolume: vtkMRMLScalarVolumeNode, #INV1 image
+                imageThreshold: float, 
                 invert: bool = False,
                 showResult: bool = True) -> None:
         """
@@ -302,6 +305,7 @@ class BackgroundNoiseSupressionLogic(ScriptedLoadableModuleLogic):
         :param invert: if True then values above the threshold will be set to 0, otherwise values below are set to 0
         :param showResult: show output volume in slice viewers
         """
+        # add mp2rage_contras
 
         if not inputVolume or not outputVolume:
             raise ValueError("Input or output volume is invalid")
