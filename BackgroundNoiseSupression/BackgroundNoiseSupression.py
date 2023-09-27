@@ -291,9 +291,9 @@ class BackgroundNoiseSupressionLogic(ScriptedLoadableModuleLogic):
 
     def process(self,
                 UNI_Image: vtkMRMLScalarVolumeNode, #UNI image
-                outputVolume: vtkMRMLScalarVolumeNode, #INV1 image
-                outputVolume: vtkMRMLScalarVolumeNode, #INV1 image
-                imageThreshold: float, 
+                INV1_Image: vtkMRMLScalarVolumeNode, #INV1 image
+                INV2_Image: vtkMRMLScalarVolumeNode, #INV2 image
+                Output_Image: vtkMRMLScalarVolumeNode, #output image
                 invert: bool = False,
                 showResult: bool = True) -> None:
         """
