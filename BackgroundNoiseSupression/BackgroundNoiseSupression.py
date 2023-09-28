@@ -308,6 +308,9 @@ class BackgroundNoiseSupressionLogic(ScriptedLoadableModuleLogic):
         """
         # add mp2rage_contras
 
+        logging.info(f'UNI_Image is {UNI_Image.GetName()}')
+        logging.info(f'INV1_Image is {INV1_Image.GetName()}')
+        logging.info(f'INV2_Image is {INV2_Image.GetName()}')
         for check_val in [UNI_Image, INV1_Image, INV2_Image, Output_Image]:
             if not check_val:
                 raise ValueError(f"input or output argument volume is invalid")
@@ -325,9 +328,9 @@ class BackgroundNoiseSupressionLogic(ScriptedLoadableModuleLogic):
             slicer.util.arrayFromVolume(UNI_Image),
             beta=10000 #TODO fix hardcoding
         )
-        print(np.shape(out_array[0])) #TODO figure out why output has an extra leading dimension
+        
         # Store result in output volume
-        slicer.util.updateVolumeFromArray(Output_Image, out_array[0])
+        slicer.util.updateVolumeFromArray(Output_Image, out_array.astype(np.int16))
         # Copy orientation affine from UNI image to ouput volume
         ijkToRas = vtk.vtkMatrix4x4()
         UNI_Image.GetIJKToRASMatrix(ijkToRas)

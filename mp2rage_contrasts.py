@@ -17,6 +17,8 @@ def estimate_signed_inv1(inv1, inv2, uni):
     parameters."""
     # rescale to [-0.5, 0.5]
     uni = rescale_uni(uni)
+    inv1 = inv1.astype(float)
+    inv2 = inv2.astype(float)
     #Calculate polarity-corrected S1 given UNI data and magnitude images:
     return ( np.divide(uni, np.abs(inv2), 
                 np.zeros_like(uni), where=(inv2!=0))
@@ -28,12 +30,17 @@ def make_mp2rage_from_signed_inversions(S1, S2, beta=0):
     corresponding MP2RAGE contrast. Note that inversions must be
     polarity-corrected (that is, signed). TODO cite MP2RAGE paper
     """
-    MP2RAGEn = S1 * (S2) - beta
-    MP2RAGEd = np.square(np.abs(S1))+np.square(np.abs(S2)) + 2 * beta
-    return np.divide(MP2RAGEn,MP2RAGEd,out=np.zeros_like(MP2RAGEn), where=(MP2RAGEd!=0))
+    S1 = S1.astype(float)
+    S2 = S2.astype(float)
+    
+    MP2RAGEn = (S1 * (S2)) - beta
+    MP2RAGEd = np.square(np.abs(S1))+np.square(np.abs(S2)) + 2*beta
+    uni = np.divide(MP2RAGEn,MP2RAGEd,out=np.zeros_like(MP2RAGEn), where=(MP2RAGEd!=0))
+    
+    return uni
 
 def rescale_uni(uni):
-    return _UNI_SCALE_FACTOR * uni + _UNI_SHIFT #TODO calculate scale factor + shift instead of hardcoding 
+    return _UNI_SCALE_FACTOR * uni.astype(float) + _UNI_SHIFT #TODO calculate scale factor + shift instead of hardcoding 
 
 def make_mp2rage_from_unsigned(uinv1, uinv2, uuni, beta=0):
     """
@@ -46,7 +53,7 @@ def make_mp2rage_from_unsigned(uinv1, uinv2, uuni, beta=0):
     # by time TI2
     
     uni = make_mp2rage_from_signed_inversions(inv1, inv2, beta)
-    return (uni -  _UNI_SHIFT)/ _UNI_SCALE_FACTOR, # save in range [0, 4096]
+    return (uni -  _UNI_SHIFT)/ _UNI_SCALE_FACTOR # save in range [0, 4096]
 
 if __name__ == '__main__':
     pass #TODO do we need this?

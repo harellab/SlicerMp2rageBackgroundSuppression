@@ -40,7 +40,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="qMRMLNodeComboBox" name="UNI_Image">
+       <widget class="qMRMLNodeComboBox" name="INV1_Image">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -76,7 +76,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="qMRMLNodeComboBox" name="INV1_Image">
+       <widget class="qMRMLNodeComboBox" name="UNI_Image">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -291,7 +291,7 @@
   <connection>
    <sender>BackgroundNoiseSupression</sender>
    <signal>mrmlSceneChanged(vtkMRMLScene*)</signal>
-   <receiver>UNI_Image</receiver>
+   <receiver>INV1_Image</receiver>
    <slot>setMRMLScene(vtkMRMLScene*)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -307,7 +307,7 @@
   <connection>
    <sender>BackgroundNoiseSupression</sender>
    <signal>mrmlSceneChanged(vtkMRMLScene*)</signal>
-   <receiver>INV1_Image</receiver>
+   <receiver>UNI_Image</receiver>
    <slot>setMRMLScene(vtkMRMLScene*)</slot>
    <hints>
     <hint type="sourcelabel">
