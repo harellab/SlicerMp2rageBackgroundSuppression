@@ -64,6 +64,9 @@
         <property name="hideChildNodeTypes">
          <stringlist notr="true"/>
         </property>
+        <property name="noneEnabled">
+         <bool>true</bool>
+        </property>
         <property name="addEnabled">
          <bool>false</bool>
         </property>
@@ -73,6 +76,12 @@
         <property name="interactionNodeSingletonTag">
          <string notr="true">Singleton</string>
         </property>
+        <property name="selectNodeUponCreation">
+         <bool>false</bool>
+        </property>
+        <property name="SlicerParameterName" stdset="0">
+         <string>INV1</string>
+        </property>
        </widget>
       </item>
       <item row="0" column="1">
@@ -81,7 +90,7 @@
          <bool>true</bool>
         </property>
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -94,6 +103,9 @@
         <property name="hideChildNodeTypes">
          <stringlist notr="true"/>
         </property>
+        <property name="noneEnabled">
+         <bool>true</bool>
+        </property>
         <property name="addEnabled">
          <bool>false</bool>
         </property>
@@ -102,6 +114,12 @@
         </property>
         <property name="interactionNodeSingletonTag">
          <string notr="true"/>
+        </property>
+        <property name="selectNodeUponCreation">
+         <bool>false</bool>
+        </property>
+        <property name="SlicerParameterName" stdset="0">
+         <string>UNI</string>
         </property>
        </widget>
       </item>
@@ -145,6 +163,9 @@
         <property name="hideChildNodeTypes">
          <stringlist notr="true"/>
         </property>
+        <property name="noneEnabled">
+         <bool>true</bool>
+        </property>
         <property name="addEnabled">
          <bool>false</bool>
         </property>
@@ -153,6 +174,12 @@
         </property>
         <property name="interactionNodeSingletonTag">
          <string notr="true"/>
+        </property>
+        <property name="selectNodeUponCreation">
+         <bool>false</bool>
+        </property>
+        <property name="SlicerParameterName" stdset="0">
+         <string>INV2</string>
         </property>
        </widget>
       </item>
@@ -194,8 +221,20 @@
         <property name="hideChildNodeTypes">
          <stringlist notr="true"/>
         </property>
+        <property name="noneEnabled">
+         <bool>true</bool>
+        </property>
+        <property name="renameEnabled">
+         <bool>true</bool>
+        </property>
         <property name="interactionNodeSingletonTag">
          <string notr="true"/>
+        </property>
+        <property name="selectNodeUponCreation">
+         <bool>false</bool>
+        </property>
+        <property name="SlicerParameterName" stdset="0">
+         <string>Output</string>
         </property>
        </widget>
       </item>
