@@ -110,10 +110,10 @@ class BackgroundNoiseSupressionParameterNode:
     INV2_Image - The volume of the second inversion.
     Output_Image - The output volume of the background-filtered UNI volume.
     """
-    UNI_Image: vtkMRMLScalarVolumeNode
-    INV1_Image: vtkMRMLScalarVolumeNode
-    INV2_Image: vtkMRMLScalarVolumeNode
-    Output_Image: vtkMRMLScalarVolumeNode
+    UNIInputVolume: vtkMRMLScalarVolumeNode
+    INV1InputVolume: vtkMRMLScalarVolumeNode
+    INV2InputVolume: vtkMRMLScalarVolumeNode
+    OutputVolume: vtkMRMLScalarVolumeNode
 
 #
 # BackgroundNoiseSupressionWidget
@@ -214,11 +214,7 @@ class BackgroundNoiseSupressionWidget(ScriptedLoadableModuleWidget, VTKObservati
 
         self.setParameterNode(self.logic.getParameterNode())
 
-        # Select default input nodes if nothing is selected yet to save a few clicks for the user (TODO NEED TO EDIT)
-        if not self._parameterNode.UNI_Image:
-            firstVolumeNode = slicer.mrmlScene.GetFirstNodeByClass("vtkMRMLScalarVolumeNode")
-            if firstVolumeNode:
-                self._parameterNode.UNI_Image = firstVolumeNode
+        # Removed code to Select default input nodes if nothing is selected yet
 
     def setParameterNode(self, inputParameterNode: Optional[BackgroundNoiseSupressionParameterNode]) -> None:
         """
@@ -238,8 +234,12 @@ class BackgroundNoiseSupressionWidget(ScriptedLoadableModuleWidget, VTKObservati
             self._checkCanApply()
 
     def _checkCanApply(self, caller=None, event=None) -> None:
-        if self._parameterNode and self._parameterNode.UNI_Image: #TODO add other parameters
-            self.ui.applyButton.toolTip = "Compute output volume"
+        if all([self._parameterNode,
+                self._parameterNode.UNIInputVolume,
+                self._parameterNode.INV1InputVolume,
+                self._parameterNode.INV2InputVolume,
+                self._parameterNode.OutputVolume]): 
+            self.ui.applyButton.toolTip = "Apply background suppression"
             self.ui.applyButton.enabled = True
         else:
             self.ui.applyButton.toolTip = "Select input and output volume nodes"

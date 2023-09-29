@@ -80,7 +80,7 @@
          <bool>false</bool>
         </property>
         <property name="SlicerParameterName" stdset="0">
-         <string>INV1</string>
+         <string>INV1InputVolume</string>
         </property>
        </widget>
       </item>
@@ -119,7 +119,7 @@
          <bool>false</bool>
         </property>
         <property name="SlicerParameterName" stdset="0">
-         <string>UNI</string>
+         <string>UNIInputVolume</string>
         </property>
        </widget>
       </item>
@@ -179,7 +179,7 @@
          <bool>false</bool>
         </property>
         <property name="SlicerParameterName" stdset="0">
-         <string>INV2</string>
+         <string>INV2InputVolume</string>
         </property>
        </widget>
       </item>
@@ -234,7 +234,7 @@
          <bool>false</bool>
         </property>
         <property name="SlicerParameterName" stdset="0">
-         <string>Output</string>
+         <string>OutputVolume</string>
         </property>
        </widget>
       </item>
