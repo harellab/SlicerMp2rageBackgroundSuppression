@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>BackgroundNoiseSupression</class>
- <widget class="qMRMLWidget" name="BackgroundNoiseSupression">
+ <class>BackgroundNoiseSuppression</class>
+ <widget class="qMRMLWidget" name="BackgroundNoiseSuppression">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -214,7 +214,7 @@
          </sizepolicy>
         </property>
         <property name="nodeTypes">
-         <stringlist notr="true">
+         <stringlist>
           <string>vtkMRMLScalarVolumeNode</string>
          </stringlist>
         </property>
@@ -222,19 +222,22 @@
          <stringlist notr="true"/>
         </property>
         <property name="noneEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="addEnabled">
          <bool>true</bool>
         </property>
         <property name="editEnabled">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="renameEnabled">
          <bool>true</bool>
         </property>
         <property name="interactionNodeSingletonTag">
-         <string notr="true"/>
+         <string>Singleton</string>
         </property>
         <property name="selectNodeUponCreation">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="SlicerParameterName" stdset="0">
          <string>OutputVolume</string>
@@ -259,7 +262,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>Background supression strength (beta):</string>
+         <string>Background Suppression strength (beta):</string>
         </property>
        </widget>
       </item>
@@ -331,7 +334,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>BackgroundNoiseSupression</sender>
+   <sender>BackgroundNoiseSuppression</sender>
    <signal>mrmlSceneChanged(vtkMRMLScene*)</signal>
    <receiver>INV1_Image</receiver>
    <slot>setMRMLScene(vtkMRMLScene*)</slot>
@@ -347,7 +350,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>BackgroundNoiseSupression</sender>
+   <sender>BackgroundNoiseSuppression</sender>
    <signal>mrmlSceneChanged(vtkMRMLScene*)</signal>
    <receiver>UNI_Image</receiver>
    <slot>setMRMLScene(vtkMRMLScene*)</slot>
@@ -363,7 +366,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>BackgroundNoiseSupression</sender>
+   <sender>BackgroundNoiseSuppression</sender>
    <signal>mrmlSceneChanged(vtkMRMLScene*)</signal>
    <receiver>INV2_Image</receiver>
    <slot>setMRMLScene(vtkMRMLScene*)</slot>
@@ -379,7 +382,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>BackgroundNoiseSupression</sender>
+   <sender>BackgroundNoiseSuppression</sender>
    <signal>mrmlSceneChanged(vtkMRMLScene*)</signal>
    <receiver>Output_Image</receiver>
    <slot>setMRMLScene(vtkMRMLScene*)</slot>

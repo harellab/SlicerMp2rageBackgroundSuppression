@@ -1,5 +1,5 @@
 #-----------------------------------------------------------------------------
-set(MODULE_NAME BackgroundNoiseSupression)
+set(MODULE_NAME BackgroundNoiseSuppression)
 
 #-----------------------------------------------------------------------------
 set(MODULE_PYTHON_SCRIPTS
