@@ -199,7 +199,7 @@ class BackgroundNoiseSuppressionWidget(ScriptedLoadableModuleWidget, VTKObservat
 
             # Compute output
             self.logic.process(self.ui.UNI_Image.currentNode(), self.ui.INV1_Image.currentNode(), self.ui.INV2_Image.currentNode(),
-                               self.ui.Output_Image.currentNode(), self.ui.checkBox.checked)
+                               self.ui.Output_Image.currentNode())
 
 #
 # BackgroundNoiseSuppressionLogic
@@ -224,13 +224,44 @@ class BackgroundNoiseSuppressionLogic(ScriptedLoadableModuleLogic):
     def getParameterNode(self):
         return BackgroundNoiseSuppressionParameterNode(super().getParameterNode())
 
+    @staticmethod
+    def assertVolumesAreAligned(volumes_to_check):
+        ERR_TOL = 1E-15
+        main_volume = volumes_to_check[0]
+        main_shape = np.shape(slicer.util.arrayFromVolume(main_volume))
+
+        # get ijk to ras matrix as a numpy array
+        __tmp = vtk.vtkMatrix4x4()
+        main_volume.GetIJKToRASMatrix(__tmp)
+        main_sform = slicer.util.arrayFromVTKMatrix(__tmp)
+
+        for check_volume in volumes_to_check[1:]:
+            check_shape = np.shape(slicer.util.arrayFromVolume(check_volume))
+
+            # get ijk to ras matrix as a numpy array
+            __tmp = vtk.vtkMatrix4x4()
+            check_volume.GetIJKToRASMatrix(__tmp)
+            check_sform = slicer.util.arrayFromVTKMatrix(__tmp)
+
+            if np.any(np.abs(main_sform - check_sform) > ERR_TOL):
+                raise ValueError(f"IJK to RAS matrix of {check_volume.GetName()} "
+                    + f"does not match that of {main_volume.GetName()}. " 
+                    + "Double-check your data and re-sample to a common grid "
+                    + "if necessary.")
+            if np.any(main_shape != check_shape):
+                raise ValueError(f"Voxel array of {check_volume.GetName()} is "
+                    + f"size {str(check_shape)} but {main_volume.GetName()} is "
+                    + f" size {str(main_shape)}. " 
+                    + "Double-check your data and re-sample to a common grid "
+                    + "if necessary.")
+            
+
     def process(self,
                 UNI_Image: vtkMRMLScalarVolumeNode, #UNI image
                 INV1_Image: vtkMRMLScalarVolumeNode, #INV1 image
                 INV2_Image: vtkMRMLScalarVolumeNode, #INV2 image
                 Output_Image: vtkMRMLScalarVolumeNode, #output image
-                invert: bool = False,
-                showResult: bool = True) -> None:
+                ) -> None:
         """
         Run the processing algorithm.
         Can be used without GUI widget.
@@ -249,6 +280,8 @@ class BackgroundNoiseSuppressionLogic(ScriptedLoadableModuleLogic):
             if not check_val:
                 raise ValueError(f"input or output argument volume is invalid")
 
+        self.assertVolumesAreAligned([UNI_Image, INV1_Image, INV2_Image])
+
         import time
         startTime = time.time()
         logging.info('Processing started')
@@ -260,12 +293,14 @@ class BackgroundNoiseSuppressionLogic(ScriptedLoadableModuleLogic):
             slicer.util.arrayFromVolume(INV1_Image),
             slicer.util.arrayFromVolume(INV2_Image),
             slicer.util.arrayFromVolume(UNI_Image),
-            beta=10000 #TODO fix hardcoding
+            strength=10000, #TODO fix hardcoding
+            range_in = None,
+            range_out=[0, 4095]
         )
         
         # Store result in output volume
-        slicer.util.updateVolumeFromArray(Output_Image, out_array.astype(np.int16))
-        # Copy orientation affine from UNI image to ouput volume
+        slicer.util.updateVolumeFromArray(Output_Image, out_array.astype(np.short))
+        # Copy orientation affine from UNI image to output volume
         ijkToRas = vtk.vtkMatrix4x4()
         UNI_Image.GetIJKToRASMatrix(ijkToRas)
         Output_Image.SetIJKToRASMatrix(ijkToRas)
@@ -297,6 +332,8 @@ class BackgroundNoiseSuppressionTest(ScriptedLoadableModuleTest):
         self.setUp()
         
         self.test_BackgroundNoiseSuppression1()
+        # TODO add tests for invalid input data. e.g.: 
+        #self.test_ijkrasmismatch()
         
    
     def test_BackgroundNoiseSuppression1(self):
