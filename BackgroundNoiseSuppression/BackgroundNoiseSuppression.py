@@ -184,7 +184,7 @@ class BackgroundNoiseSuppressionWidget(ScriptedLoadableModuleWidget, VTKObservat
                 self._parameterNode.UNIInputVolume,
                 self._parameterNode.INV1InputVolume,
                 self._parameterNode.INV2InputVolume,
-                self._parameterNode.OutputVolume]): 
+                self._parameterNode.OutputVolume]):  
             self.ui.applyButton.toolTip = "Apply background suppression"
             self.ui.applyButton.enabled = True
         else:
@@ -195,12 +195,13 @@ class BackgroundNoiseSuppressionWidget(ScriptedLoadableModuleWidget, VTKObservat
         """
         Run processing when user clicks "Apply" button.
         """
+    
         with slicer.util.tryWithErrorDisplay("Failed to compute results.", waitCursor=True):
 
             # Compute output
             self.logic.process(self.ui.UNI_Image.currentNode(), self.ui.INV1_Image.currentNode(), self.ui.INV2_Image.currentNode(),
-                               self.ui.Output_Image.currentNode())
-
+                               self.ui.Output_Image.currentNode(), self.ui.DoubleSpinBox.value)
+            # Default suppression strength = 1000
 #
 # BackgroundNoiseSuppressionLogic
 #
@@ -261,6 +262,7 @@ class BackgroundNoiseSuppressionLogic(ScriptedLoadableModuleLogic):
                 INV1_Image: vtkMRMLScalarVolumeNode, #INV1 image
                 INV2_Image: vtkMRMLScalarVolumeNode, #INV2 image
                 Output_Image: vtkMRMLScalarVolumeNode, #output image
+                Strength: float, 
                 ) -> None:
         """
         Run the processing algorithm.
@@ -293,7 +295,7 @@ class BackgroundNoiseSuppressionLogic(ScriptedLoadableModuleLogic):
             slicer.util.arrayFromVolume(INV1_Image),
             slicer.util.arrayFromVolume(INV2_Image),
             slicer.util.arrayFromVolume(UNI_Image),
-            strength=10000, #TODO fix hardcoding
+            Strength, #TODO fix hardcoding
             range_in = None,
             range_out=[0, 4095]
         )
@@ -346,4 +348,4 @@ class BackgroundNoiseSuppressionTest(ScriptedLoadableModuleTest):
         INV2_Img = slicer.util.loadVolume(os.path.join(TestPath,'INV2_Test.nrrd'))
         outputVolume = slicer.mrmlScene.AddNewNodeByClass("vtkMRMLScalarVolumeNode")
         outputVolume.SetName("Test_Output")
-        logic.process(UNI_Img,INV1_Img,INV2_Img,outputVolume)
+        logic.process(UNI_Img,INV1_Img,INV2_Img,outputVolume, 1000)
