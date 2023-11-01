@@ -25,5 +25,5 @@ Please feel free to contact The Harel Lab github organization for questions, fee
 
 Acknowledgments
 
-Development of SlicerAblationPlanner was supported in part by the following NIH grants:
-
+Development of mp2rageBackgroundSuppression was supported in part by the following NIH grants:
+Udall NIH P50 NS123109
