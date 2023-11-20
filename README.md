@@ -7,7 +7,7 @@ The MP2RAGE MRI contrast<sup>[1](#1)</sup> is acquired by simultaneously collect
 
 ## Installation Instructions
 1. In Slicer, open the Extensions Manager 
-(View &rarr Extensions Manager).
+(View &rarr; Extensions Manager).
 
 2. Search for `MP2RAGE` and click `INSTALL`
 
