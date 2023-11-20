@@ -67,4 +67,4 @@ Udall NIH P50 NS123109
 
 <a id="2">2.</a> Middlebrooks EH, Tao S, Zhou X, et al. Synthetic Inversion Image Generation using MP2RAGE T1 Mapping for Surgical Targeting in Deep Brain Stimulation and Lesioning. *Ster Funct Neurosurg*. 2023;101(5):326-331. doi:10.1159/000533259
 
-<a id="3">2.</a> O’Brien KR, Kober T, Hagmann P, et al. Robust T1-Weighted Structural Brain Imaging and Morphometry at 7T Using MP2RAGE. Margulies D, ed. *PLoS ONE*. 2014;9(6):e99676. doi:10.1371/journal.pone.0099676
+<a id="3">3.</a> O’Brien KR, Kober T, Hagmann P, et al. Robust T1-Weighted Structural Brain Imaging and Morphometry at 7T Using MP2RAGE. Margulies D, ed. *PLoS ONE*. 2014;9(6):e99676. doi:10.1371/journal.pone.0099676
