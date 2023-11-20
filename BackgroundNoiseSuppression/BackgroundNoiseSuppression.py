@@ -27,19 +27,17 @@ class BackgroundNoiseSuppression(ScriptedLoadableModule):
 
     def __init__(self, parent):
         ScriptedLoadableModule.__init__(self, parent)
-        self.parent.title = "BackgroundNoiseSuppression"  # TODO: make this more human readable by adding spaces
-        self.parent.categories = ["Filtering"]  # TODO: set categories (folders where the module shows up in the module selector)
-        self.parent.dependencies = []  # TODO: add here list of module names that this module requires
-        self.parent.contributors = ["Sam Brenny UMN CMRR)"]  # TODO: replace with "Firstname Lastname (Organization)"
-        # TODO: update with short description of the module and a link to online module documentation
+        self.parent.title = "Background Noise Suppression"
+        self.parent.categories = ["Filtering"] 
+        self.parent.dependencies = [] 
+        self.parent.contributors = ["Sam Brenny, Henry Braun UMN CMRR)"]
         self.parent.helpText = """
-This is an example of scripted loadable module bundled in an extension.
-See more information in <a href="https://github.com/organization/projectname#BackgroundNoiseSuppression">module documentation</a>.
+This is an extension for 3D Slicer that is used to filter background noise (aka denoising) for MP2RAGE Image acquisitions. 
+For more information on this extension, visit https://github.com/harellab/SlicerMp2rageBackgroundSuppression.
 """
-        # TODO: replace with organization, grant and thanks
         self.parent.acknowledgementText = """
-This file was originally developed by Jean-Christophe Fillion-Robin, Kitware Inc., Andras Lasso, PerkLab,
-and Steve Pieper, Isomics, Inc. and was partially funded by NIH grant 3P41RR013218-12S1.
+Development of mp2rageBackgroundSuppression was supported in part by the following NIH grants:
+Udall NIH P50 NS123109
 """
 
 #
@@ -266,15 +264,13 @@ class BackgroundNoiseSuppressionLogic(ScriptedLoadableModuleLogic):
                 ) -> None:
         """
         Run the processing algorithm.
-        Can be used without GUI widget.
-        :param inputVolume: volume to be thresholded
-        :param outputVolume: thresholding result
-        :param imageThreshold: values above/below this threshold will be set to 0
-        :param invert: if True then values above the threshold will be set to 0, otherwise values below are set to 0
-        :param showResult: show output volume in slice viewers
+        :param UNI_Image: Volume to suppress background noise.
+        :param INV1_Image: Volume of the first inversion.
+        :param INV2_Image: Volume of the second inversion.
+        :param Output_Image: Output volume of the background-filtered UNI volume.
+        :param Strength: Strength of background noise suppression.
         """
-        # add mp2rage_contras
-
+       
         logging.info(f'UNI_Image is {UNI_Image.GetName()}')
         logging.info(f'INV1_Image is {INV1_Image.GetName()}')
         logging.info(f'INV2_Image is {INV2_Image.GetName()}')
