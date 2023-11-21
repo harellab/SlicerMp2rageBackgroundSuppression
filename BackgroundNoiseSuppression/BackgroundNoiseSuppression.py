@@ -30,10 +30,10 @@ class BackgroundNoiseSuppression(ScriptedLoadableModule):
         self.parent.title = "Background Noise Suppression"
         self.parent.categories = ["Filtering"] 
         self.parent.dependencies = [] 
-        self.parent.contributors = ["Sam Brenny, Henry Braun UMN CMRR)"]
+        self.parent.contributors = ["Sam Brenny (UMN CMRR), Henry Braun (UMN CMRR)"]
         self.parent.helpText = """
 This is an extension for 3D Slicer that is used to filter background noise (aka denoising) for MP2RAGE Image acquisitions. 
-For more information on this extension, visit https://github.com/harellab/SlicerMp2rageBackgroundSuppression.
+For more information on this extension, visit https://github.com/harellab/SlicerMP2RAGE.
 """
         self.parent.acknowledgementText = """
 Development of mp2rageBackgroundSuppression was supported in part by the following NIH grants:
