@@ -20,13 +20,13 @@ project's GitHub repository.
 
 1.	Open a terminal, change directory to the path that you will input into Step 3, and type into the command line:
    
-    `git clone git@github.com:harellab/SlicerMp2rageBackgroundSuppression.git`
+    `git clone git@github.com:harellab/SlicerMP2RAGE.git`
 
 2.	Open Slicer and go to Edit &rarr; Application Settings &rarr; Modules
 3.	Copy the mp2rageBackgroundSuppression directory path into the Additional module paths and click ok
 
     Note: the module path will be the directory where the github was cloned 
-    with ~/mp2rageBackgroundSuppression/BackgroundNoiseSuppression
+    with ~/SlicerMP2RAGE-Trunk/BackgroundNoiseSuppression
 ![Alt text](doc/AdditionalModulePaths.png)
 
 4. Restart Slicer and go back to 
@@ -55,7 +55,7 @@ Mp2rageBackgroundSuppression, same as 3D Slicer, is a research software. It is N
 
 ## Support
 
-Please feel free to contact The Harel Lab github organization for questions, feedback, suggestions or bugs. https://github.com/harellab/SlicerMp2rageBackgroundSuppression/issues
+Please feel free to contact The Harel Lab github organization for questions, feedback, suggestions or bugs. https://github.com/harellab/SlicerMP2RAGE/issues
 
 ## Acknowledgments
 
