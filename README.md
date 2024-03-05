@@ -1,15 +1,14 @@
-# SlicerMp2rageBackgroundSuppression
+# SlicerUHFMRtools
 
-This is an extension for 3D Slicer that provides tools for working with MRI
-images using the MP2RAGE contrast. Currently it supplies a single tool for suppressing divide-by-zero background noise (aka denoising).
+This is an extension for 3D Slicer that provides tools for working with ultra-high field (UHF) MRI images and is intended to provide post-acquisition processing.  These tools are meant to aid in the post-processing for existing MRI pipelines.
 
-The MP2RAGE MRI contrast<sup>[1](#1)</sup> is acquired by simultaneously collecting two MPRAGE images at different inversion times and combining them to form a new, derived contrast. MP2RAGE generates excellent T1-weighted images and is useful for generating other derived contrasts (e.g. T1 maps, synthetic white matter-nulled T1s, and synthetic FGATIR<sup>[2](#2)</sup>). However, it contains “salt-and-pepper” noise, rather than zero values, in areas of low or no signal. This noise can cause algorithms developed for traditional T1 images processing to fail. A “denoising” (more accurately, background suppression) method for eliminating such noise has been published<sup>[3](#3)</sup>, but it relies on additional phase data which is typically not available. This extension implements a method for retrospectively applying a similar noise suppression approach which relies only on available scanner output images.
+Currently, there is an MP2RAGE background noise suppression (aka denoising) module using MP2RAGE contrast images. The MP2RAGE MRI contrast<sup>[1](#1)</sup> is acquired by simultaneously collecting two MPRAGE images at different inversion times and combining them to form a new, derived contrast. MP2RAGE generates excellent T1-weighted images and is useful for generating other derived contrasts (e.g. T1 maps, synthetic white matter-nulled T1s, and synthetic FGATIR<sup>[2](#2)</sup>). However, it contains “salt-and-pepper” noise, rather than zero values, in areas of low or no signal. This noise can cause algorithms developed for traditional T1 images processing to fail. A “denoising” (more accurately, background suppression) method for eliminating such noise has been published<sup>[3](#3)</sup>, but it relies on additional phase data which is typically not available. This extension implements a method for retrospectively applying a similar noise suppression approach which relies only on available scanner output images.
 
 ## Installation Instructions
 1. In Slicer, open the Extensions Manager 
 (View &rarr; Extensions Manager).
 
-2. Search for `MP2RAGE` and click `INSTALL`
+2. Search for `UHFMRtools` and click `INSTALL`
 
 3. Restart Slicer.
 
