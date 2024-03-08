@@ -314,15 +314,15 @@ def registerSampleData():
         SampleData.SampleDataLogic.registerCustomSampleDataSource(
         category='UNI',
         sampleName='UNI_Img',
-        uris="https://github.com/harellab/SlicerDataRepository/raw/main/BackgroundNoiseSupression/UNI_Test.nrrd",
+        uris="https://github.com/harellab/SlicerDataRepository/raw/v0.0.1/BackgroundNoiseSupression/UNI_Test.nrrd",
         fileNames='UNI_Test.nrrd',
         checksums='SHA256:01d89243b52831d00adff018f5a9f1790bf5732ac4c904ac1ef3be58aec621a4',
         nodeNames='UNI_Img'
-    )
+    ) 
         SampleData.SampleDataLogic.registerCustomSampleDataSource(
         category='INV1',
         sampleName='INV1_Img',
-        uris="https://github.com/harellab/SlicerDataRepository/raw/main/BackgroundNoiseSupression/INV1_Test.nrrd",
+        uris="https://github.com/harellab/SlicerDataRepository/raw/v0.0.1/BackgroundNoiseSupression/INV1_Test.nrrd",
         fileNames='INV1_Test.nrrd',
         checksums='SHA256:500b05ce7264f2876b790b06bbcaf97ba8022b88cfd1ce1249f72dae511b55d5',
         nodeNames='INV1_Img'
@@ -330,7 +330,7 @@ def registerSampleData():
         SampleData.SampleDataLogic.registerCustomSampleDataSource(
         category='INV2',
         sampleName='INV2_Img',
-        uris="https://github.com/harellab/SlicerDataRepository/raw/main/BackgroundNoiseSupression/INV2_Test.nrrd",
+        uris="https://github.com/harellab/SlicerDataRepository/raw/v0.0.1/BackgroundNoiseSupression/INV2_Test.nrrd",
         fileNames='INV2_Test.nrrd',
         checksums='SHA256:0dc90737c3209d565a3f0ce000dde04717b3b3201f8c633c9ab9d381101fe87f',
         nodeNames='INV2_Img'
