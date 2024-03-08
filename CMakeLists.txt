@@ -4,12 +4,12 @@ project(BackgroundNoiseSuppression)
 
 #-----------------------------------------------------------------------------
 # Extension meta-information
-set(EXTENSION_HOMEPAGE "https://github.com/harellab/SlicerMP2RAGE")
+set(EXTENSION_HOMEPAGE "https://github.com/harellab/SlicerUHFMRTools")
 set(EXTENSION_CATEGORY "Filtering")
 set(EXTENSION_CONTRIBUTORS "Sam Brenny (CMRR), Henry Braun (CMRR)")
-set(EXTENSION_DESCRIPTION "provides background noise filtering for MP2RAGE acquisition")
-set(EXTENSION_ICONURL "https://github.com/harellab/SlicerMP2RAGE/blob/trunk/ExtensionIcon.png")
-set(EXTENSION_SCREENSHOTURLS "https://github.com/harellab/SlicerMP2RAGE/blob/trunk/Screenshot1.png, https://github.com/harellab/SlicerMP2RAGE/blob/trunk/Screenshot2.png")
+set(EXTENSION_DESCRIPTION "This extension provides tools for working with ultra-high field (UHF) MRI images and is intended to provide post-acquisition processing.")
+set(EXTENSION_ICONURL "https://github.com/harellab/SlicerUHFMRTools/blob/trunk/ExtensionIcon.png")
+set(EXTENSION_SCREENSHOTURLS "https://github.com/harellab/SlicerUHFMRTools/blob/trunk/doc/AdditionalModulePaths.png, https://github.com/harellab/SlicerUHFMRTools/blob/trunk/doc/FavoriteModules.png, https://github.com/harellab/SlicerUHFMRTools/blob/trunk/doc/ModuleWorkflow.png, https://github.com/harellab/SlicerUHFMRTools/blob/trunk/doc/ModuleResult.png")
 set(EXTENSION_DEPENDS "NA") # Specified as a list or "NA" if no dependencies
 
 #-----------------------------------------------------------------------------

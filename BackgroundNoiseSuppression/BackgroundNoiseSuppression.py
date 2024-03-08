@@ -2,9 +2,8 @@ import logging
 import os
 import numpy as np
 from typing import Annotated, Optional
-
 import vtk
-
+import SampleData
 import slicer
 from slicer.ScriptedLoadableModule import *
 from slicer.util import VTKObservationMixin
@@ -285,7 +284,7 @@ class BackgroundNoiseSuppressionLogic(ScriptedLoadableModuleLogic):
         logging.info('Processing started')
 
         # Run background suppression
-        from mp2rage_contrasts import make_mp2rage_from_unsigned
+        from Lib.mp2rage_contrasts import make_mp2rage_from_unsigned
         # Calculate ouput voxel data
         out_array = make_mp2rage_from_unsigned(
             slicer.util.arrayFromVolume(INV1_Image),
@@ -310,7 +309,32 @@ class BackgroundNoiseSuppressionLogic(ScriptedLoadableModuleLogic):
 
 #
 # BackgroundNoiseSuppressionTest
-#
+def registerSampleData():
+        # Load test data
+        SampleData.SampleDataLogic.registerCustomSampleDataSource(
+        category='UNI',
+        sampleName='UNI_Img',
+        uris="https://github.com/harellab/SlicerDataRepository/raw/main/BackgroundNoiseSupression/UNI_Test.nrrd",
+        fileNames='UNI_Test.nrrd',
+        checksums='SHA256:01d89243b52831d00adff018f5a9f1790bf5732ac4c904ac1ef3be58aec621a4',
+        nodeNames='UNI_Img'
+    )
+        SampleData.SampleDataLogic.registerCustomSampleDataSource(
+        category='INV1',
+        sampleName='INV1_Img',
+        uris="https://github.com/harellab/SlicerDataRepository/raw/main/BackgroundNoiseSupression/INV1_Test.nrrd",
+        fileNames='INV1_Test.nrrd',
+        checksums='SHA256:500b05ce7264f2876b790b06bbcaf97ba8022b88cfd1ce1249f72dae511b55d5',
+        nodeNames='INV1_Img'
+    )
+        SampleData.SampleDataLogic.registerCustomSampleDataSource(
+        category='INV2',
+        sampleName='INV2_Img',
+        uris="https://github.com/harellab/SlicerDataRepository/raw/main/BackgroundNoiseSupression/INV2_Test.nrrd",
+        fileNames='INV2_Test.nrrd',
+        checksums='SHA256:0dc90737c3209d565a3f0ce000dde04717b3b3201f8c633c9ab9d381101fe87f',
+        nodeNames='INV2_Img'
+    )
 
 class BackgroundNoiseSuppressionTest(ScriptedLoadableModuleTest):
     """
@@ -332,16 +356,16 @@ class BackgroundNoiseSuppressionTest(ScriptedLoadableModuleTest):
         self.test_BackgroundNoiseSuppression1()
         # TODO add tests for invalid input data. e.g.: 
         #self.test_ijkrasmismatch()
-        
-   
+
     def test_BackgroundNoiseSuppression1(self):
         logic = BackgroundNoiseSuppressionLogic()
-        
-        TestPath = os.path.join(os.path.dirname(__file__), 'Resources/Tests/')
 
-        UNI_Img = slicer.util.loadVolume(os.path.join(TestPath,'UNI_Test.nrrd'))
-        INV1_Img = slicer.util.loadVolume(os.path.join(TestPath,'INV1_Test.nrrd'))
-        INV2_Img = slicer.util.loadVolume(os.path.join(TestPath,'INV2_Test.nrrd'))
+        registerSampleData()
+        UNI_Img = SampleData.downloadSample('UNI_Img')
+        INV1_Img = SampleData.downloadSample('INV1_Img')
+        INV2_Img = SampleData.downloadSample('INV2_Img')
+
+        # Run test
         outputVolume = slicer.mrmlScene.AddNewNodeByClass("vtkMRMLScalarVolumeNode")
         outputVolume.SetName("Test_Output")
         logic.process(UNI_Img,INV1_Img,INV2_Img,outputVolume, 1000)
