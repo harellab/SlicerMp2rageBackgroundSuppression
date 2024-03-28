@@ -284,7 +284,7 @@ class BackgroundNoiseSuppressionLogic(ScriptedLoadableModuleLogic):
         logging.info('Processing started')
 
         # Run background suppression
-        from Lib.mp2rage_contrasts import make_mp2rage_from_unsigned
+        from Modules.mp2rage_contrasts import make_mp2rage_from_unsigned
         # Calculate ouput voxel data
         out_array = make_mp2rage_from_unsigned(
             slicer.util.arrayFromVolume(INV1_Image),
