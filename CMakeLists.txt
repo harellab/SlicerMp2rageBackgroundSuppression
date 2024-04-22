@@ -6,10 +6,10 @@ project(UHFMRTools)
 # Extension meta-information
 set(EXTENSION_HOMEPAGE "https://github.com/harellab/SlicerUHFMRTools")
 set(EXTENSION_CATEGORY "Filtering")
-set(EXTENSION_CONTRIBUTORS "Sam Brenny (CMRR), Henry Braun (CMRR)")
+set(EXTENSION_CONTRIBUTORS "Henry Braun (CMRR, UMN), Sam Brenny (CMRR, UMN)")
 set(EXTENSION_DESCRIPTION "This extension provides tools for working with ultra-high field (UHF) MRI images and is intended to provide post-acquisition processing.")
-set(EXTENSION_ICONURL "iconurl https://raw.githubusercontent.com/harellab/SlicerUHFMRTools/trunk/ExtensionIcon.png")
-set(EXTENSION_SCREENSHOTURLS "https://raw.githubusercontent.com/harellab/SlicerUHFMRTools/trunk/doc/AdditionalModulePaths.png, https://raw.githubusercontent.com/harellab/SlicerUHFMRTools/trunk/doc/FavoriteModules.png, https://raw.githubusercontent.com/harellab/SlicerUHFMRTools/trunk/doc/ModuleResult.png, https://raw.githubusercontent.com/harellab/SlicerUHFMRTools/trunk/doc/ModuleWorkflow.png")
+set(EXTENSION_ICONURL "https://raw.githubusercontent.com/harellab/SlicerUHFMRTools/trunk/ExtensionIcon.png")
+set(EXTENSION_SCREENSHOTURLS "https://raw.githubusercontent.com/harellab/SlicerUHFMRTools/trunk/doc/AdditionalModulePaths.png https://raw.githubusercontent.com/harellab/SlicerUHFMRTools/trunk/doc/FavoriteModules.png https://raw.githubusercontent.com/harellab/SlicerUHFMRTools/trunk/doc/ModuleResult.png https://raw.githubusercontent.com/harellab/SlicerUHFMRTools/trunk/doc/ModuleWorkflow.png")
 set(EXTENSION_DEPENDS "NA") # Specified as a list or "NA" if no dependencies
 
 #-----------------------------------------------------------------------------
